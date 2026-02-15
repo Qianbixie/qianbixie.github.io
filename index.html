@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>铅笔斜p - 个人音乐主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #121212;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        nav {
+            background: #1a1a1a;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            /* 关键修改：主色改为蓝色 #4096ff */
+            color: #4096ff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        /* 关键修改：hover时变为蓝色 */
+        .nav-links a:hover {
+            color: #4096ff;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+            /* 关键修改：标题色改为蓝色 */
+            color: #4096ff;
+        }
+
+        /* 首页 */
+        #hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/c35c8a95b0524d44919ba623ed2ded2b~tplv-a9rns2rl98-image.image?rcl=20250917155012EDD10C989ADFD9E46AF1&rk3s=8e244e95&rrcfp=e75484ac&x-expires=1758700214&x-signature=qQ6JjxvfuPj59DnVDBFne%2F1JTak%3D');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        #hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        #hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            /* 关键修改：按钮背景改为蓝色 */
+            background: #4096ff;
+            color: #121212;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background 0.3s;
+        }
+
+        /* 关键修改：按钮hover加深蓝色 */
+        .btn:hover {
+            background: #3088ee;
+        }
+
+        /* 音乐作品 */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .music-card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .music-card img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .music-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .music-card p {
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        /* 演出日程 - 暂无演出 */
+        .show-list {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 40px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            color: #ccc;
+            font-size: 18px;
+        }
+
+        /* 专辑购买 */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .store-card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .store-card img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .store-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .store-card .price {
+            font-size: 20px;
+            /* 关键修改：价格色改为蓝色 */
+            color: #4096ff;
+            margin-bottom: 15px;
+        }
+
+        /* 乐迷互动 */
+        .comment-form {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .comment-form input,
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #2a2a2a;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .comment-list {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .comment-item {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .comment-item h4 {
+            margin-bottom: 5px;
+            /* 关键修改：留言人名色改为蓝色 */
+            color: #4096ff;
+        }
+
+        .comment-item .date {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #1a1a1a;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        /* 关键修改：社交图标hover变为蓝色 */
+        .social-links a:hover {
+            color: #4096ff;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            #hero h1 {
+                font-size: 36px;
+            }
+
+            .show-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+        }
+    </style>
+    <!-- 字体图标（包含B站图标） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <!-- 导航栏 - 关键修改：艺名改为铅笔斜p -->
+    <nav>
+        <div class="container nav-container">
+            <a href="#hero" class="logo">铅笔斜p</a>
+            <div class="nav-links">
+                <a href="#hero">首页</a>
+                <a href="#music">音乐作品</a>
+                <a href="#shows">演出日程</a>
+                <a href="#store">专辑购买</a>
+                <a href="#community">乐迷互动</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页 - 调整文案贴合风格 -->
+    <section id="hero">
+        <div class="container">
+            <h1>铅笔斜p的音乐小站</h1>
+            <p>祝福的钟声响起，让我们走向幸福的结局</p>
+            <a href="#music" class="btn">聆听音乐</a>
+        </div>
+    </section>
+
+    <!-- 音乐作品 - 关键修改：替换为你的两首歌 -->
+    <section id="music">
+        <div class="container">
+            <h2 class="section-title">音乐作品</h2>
+            <div class="music-grid">
+                <!-- 第一首：不想长大的童年 -->
+                <div class="music-card">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/51c9bf1f5eb14e2fadbcf85b6736dfb5~tplv-a9rns2rl98-image.image?rcl=202509171415076FB6943049D6ADD975FA&rk3s=8e244e95&rrcfp=2609e108&x-expires=1758694511&x-signature=HPPfnJst6ekOc0l7wua31xcSd5c%3D" alt="不想长大的童年">
+                    <h3>不想长大的童年</h3>
+                    <p>校园物语 · 3′20″</p>
+                    <a href="#" class="btn">试听</a>
+                </div>
+                <!-- 第二首：这么近，那么美，周末到河北 -->
+                <div class="music-card">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/b4c9441cbf7441629d76945996844487~tplv-a9rns2rl98-image.image?rcl=202509171623155D4906AF2EE11FD4E790&rk3s=8e244e95&rrcfp=2609e108&x-expires=1758702199&x-signature=83VP18IMFTM%2F7%2FV3fv5DbaIGLd0%3D" alt="这么近，那么美，周末到河北">
+                    <h3>这么近，那么美，周末到河北</h3>
+                    <p>周末到河北 · 4′</p>
+                    <a href="#" class="btn">试听</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 演出日程 - 关键修改：标注暂无演出 -->
+    <section id="shows">
+        <div class="container">
+            <h2 class="section-title">演出日程</h2>
+            <div class="show-list">
+                暂无演出安排，敬请期待～
+            </div>
+        </div>
+    </section>
+
+    <!-- 专辑购买 - 保留结构，可后续替换 -->
+    <section id="store">
+        <div class="container">
+            <h2 class="section-title">专辑购买</h2>
+            <div class="store-grid">
+                <div class="store-card">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/51c9bf1f5eb14e2fadbcf85b6736dfb5~tplv-a9rns2rl98-image.image?rcl=202509171415076FB6943049D6ADD975FA&rk3s=8e244e95&rrcfp=2609e108&x-expires=1758694511&x-signature=HPPfnJst6ekOc0l7wua31xcSd5c%3D" alt="校园物语">
+                    <h3>校园物语 (CD)</h3>
+                    <p class="price">¥20</p>
+                    <a href="#" class="btn">暂未开售</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 乐迷互动 -->
+    <section id="community">
+        <div class="container">
+            <h2 class="section-title">乐迷互动</h2>
+            <div class="comment-form">
+                <input type="text" placeholder="你的名字" required>
+                <input type="email" placeholder="你的邮箱" required>
+                <textarea rows="4" placeholder="想说的话..." required></textarea>
+                <button class="btn" type="submit">提交留言</button>
+            </div>
+            <div class="comment-list">
+                <div class="comment-item">
+                    <h4>小乐</h4>
+                    <p class="date">2025-02-15</p>
+                    <p>《不想长大的童年》太有共鸣了！仿佛回到了校园时光～</p>
+                </div>
+                <div class="comment-item">
+                    <h4>北北</h4>
+                    <p class="date">2025-02-10</p>
+                    <p>《这么近，那么美》唱出了河北的美，超喜欢！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 - 关键修改：替换艺名+B站链接 -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <!-- https://space.bilibili.com/488550755?spm_id_from=333.337.0.0-->
+                <a href="https://space.bilibili.com/488550755?spm_id_from=333.337.0.0" target="_blank"><i class="fa fa-bilibili"></i></a>
+            </div>
+            <p>© 2025 铅笔斜p · VOCALOID P</p>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '60px';
+            navLinks.style.right = '20px';
+            navLinks.style.background = '#1a1a1a';
+            navLinks.style.padding = '20px';
+            navLinks.style.borderRadius = '10px';
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
